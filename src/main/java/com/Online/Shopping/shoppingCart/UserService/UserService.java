@@ -13,9 +13,10 @@ public class UserService {
 	
 	private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
 	public void register(Users users) {
-		users.setPassword(encoder.encode(users.getPassword()));;
+		users.setPassword(encoder.encode(users.getPassword()));
+		String role=users.getEmail().endsWith("comapny.com")?"ROLE_USER":"ROLE_ADMIN";
+		users.setRole(role);
 		repository.save(users);
-		System.out.println(users.getPassword());
 		
 	}
 

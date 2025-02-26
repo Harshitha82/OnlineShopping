@@ -1,5 +1,6 @@
 package com.Online.Shopping.shoppingCart.Mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +14,11 @@ public class CartMapper {
 	{
 		List<CartItemDto> getcart=cart.getCartItems().stream().
 				map(CartItemMapper::itemDto).collect(Collectors.toList());
-		return new CartDto(cart.getId(),getcart,cart.getTotalPrice());
+		System.out.println(getcart);
+		System.out.println(getcart.size());
+		BigDecimal totalPrice=getcart.stream().map(item->
+		item.getProductPrice().multiply(BigDecimal.valueOf(item.getQuantity()))).reduce(BigDecimal.ZERO,BigDecimal::add);
+		return new CartDto(cart.getId(),getcart,totalPrice);
 	}
 
 }

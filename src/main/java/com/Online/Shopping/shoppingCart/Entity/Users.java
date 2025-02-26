@@ -26,8 +26,7 @@ public class Users {
 	@Column(unique = true,nullable = false)
 	private String email;
 	private String password;
-	@Enumerated(EnumType.STRING)
-	private Role role=Role.ROLE_USER;
+	private String role;
 	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
 	private Cart cart;
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)

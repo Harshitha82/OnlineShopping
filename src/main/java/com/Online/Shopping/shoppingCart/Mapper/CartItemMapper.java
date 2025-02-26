@@ -12,7 +12,8 @@ public class CartItemMapper {
 				cart.getQuantity(),
 				cart.getProduct().getId(),
 				cart.getProduct().getName(),
-				cart.getProduct().getImage());
+				cart.getProduct().getImage(),
+				cart.getProduct().getPrice());
 	}
 	
 

@@ -1,5 +1,6 @@
 package com.Online.Shopping.shoppingCart.Entity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +14,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cart {
 
 	@Id
@@ -25,7 +31,15 @@ public class Cart {
 	@OneToOne
 	@JoinColumn(name="user_id",nullable = false)
 	private Users user;
-	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<CartItem> cartItems=new ArrayList<>();
-	private Double totalPrice;
+	
+	
+	public Cart(Users users) {
+		// TODO Auto-generated constructor stub
+		this.user=users;
+		this.cartItems=new ArrayList<>();
+	}
+	
+	
 }

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,6 +16,7 @@ import com.Online.Shopping.shoppingCart.UserService.FetchUserDetails;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfiguration 
 {
 	@Autowired
@@ -25,7 +27,7 @@ public class SecurityConfiguration
 		return http
 				.formLogin(Customizer.withDefaults())
 				.httpBasic(Customizer.withDefaults())
-				.authorizeHttpRequests(auth->auth.anyRequest().authenticated())
+				.authorizeHttpRequests(auth->auth.requestMatchers("/user/register").permitAll().anyRequest().authenticated())
 				.csrf(c->c.disable())
 				.build();
 	}
