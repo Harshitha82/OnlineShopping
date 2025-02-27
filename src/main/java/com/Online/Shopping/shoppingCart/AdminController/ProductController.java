@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,29 +32,34 @@ public class ProductController {
 	private ProductService service;
 	
 	@PostMapping("/addProduct")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ProductDto addProduct(@RequestParam String name,@RequestParam BigDecimal price,@RequestPart MultipartFile image,@RequestParam String desscription,@RequestParam String categoryName) throws IOException
 	{
 		return service.addProduct(name,image,desscription,categoryName,price);
 	}
 	
 	@GetMapping("/getById/{id}")
+	@PreAuthorize("hasRole('USER')")
 	public ProductDto getProductById(@PathVariable long id)
 	{
 		return service.getProductById(id);
 	}
 	
 	@GetMapping("/getAllProduct")
+	@PreAuthorize("hasRole('USER')")
 	public List<ProductDto> getAllProduct()
 	{
 		return service.getAllProducts();
 	}
 	@PutMapping("/updateProduct/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ProductDto updateProduct(@PathVariable long id,@RequestParam String categoryName,@RequestParam String description,@RequestPart MultipartFile image,@RequestParam String name,@RequestParam BigDecimal price) throws IOException
 	{
 		return service.updateProduct(id, categoryName, description, image, name, price);
 	}
 	
 	@DeleteMapping("/deleteById/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String deleteProduct(@PathVariable long id)
 	{
 		return service.deleteProductById(id);

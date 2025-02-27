@@ -3,6 +3,7 @@ package com.Online.Shopping.shoppingCart.AdminController;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +19,7 @@ import com.Online.Shopping.shoppingCart.UserService.CartService;
 
 @RestController
 @RequestMapping("/cart")
+@PreAuthorize("hasRole('USER')")
 public class CartController {
 
 	@Autowired

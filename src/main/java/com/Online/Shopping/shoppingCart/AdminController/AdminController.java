@@ -16,20 +16,13 @@ import com.Online.Shopping.shoppingCart.UserService.UserService;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-
-	@Autowired
-	private AdminService service;
-
-	@PostMapping("/register")
-	public String register(@RequestBody Admin admin) 
-	{
-		service.register(admin);
-		return "registered successfully";
-	}
+	
 	@GetMapping("/home")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String home() {
 		return "Admin home";
 	}
+	
+	
 	
 }

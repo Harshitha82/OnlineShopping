@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,27 +31,32 @@ public class CategoryController {
 	private CategoryService categoryService;
 
 	@PostMapping("/addCategory")
+	@PreAuthorize("hasRole('ADMIN')")
 	public CategoryDto createCategory(@RequestParam String name,@RequestPart MultipartFile file) throws IOException
 	{
 		return categoryService.createCategory(name, file);
 	}
 	@DeleteMapping("/deleteCategory")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String deleteCategory(@RequestParam String name)
 	{
 		return categoryService.deleteCategory(name);
 	}
 	
 	@PutMapping("/updateCategory/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public CategoryDto updateCategory(@PathVariable long id,@RequestParam String name,@RequestPart MultipartFile file ) throws IOException
 	{
 		return categoryService.updateCategory(id,name,file);
 	}
 	
 	@GetMapping("/getCategory")
+	@PreAuthorize("hasRole('USER')")
 	public List<CategoryDto> getCategory() {
 		return categoryService.getCategory();
 	}
 	@GetMapping("/getById/{id}")
+	@PreAuthorize("hasRole('USER')")
 	public CategoryDto getCategoryById(@PathVariable long id)
 	{
 		return categoryService.getCategory(id);
