@@ -9,12 +9,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderItem {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;

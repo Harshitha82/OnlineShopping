@@ -69,7 +69,7 @@ public class CartService {
 		Cart cart=cartRepository.findByUserId(users.getId()).orElseThrow();
 		cart.getCartItems().clear();
 		cartRepository.save(cart);
-		return "remove all items";
+		return "removed all items";
 	}
 	
 	public CartDto deleteItem(String email,long productId)

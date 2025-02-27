@@ -6,8 +6,11 @@ import java.util.List;
 
 import org.apache.catalina.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,7 +34,7 @@ public class Cart {
 	@OneToOne
 	@JoinColumn(name="user_id",nullable = false)
 	private Users user;
-	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
 	private List<CartItem> cartItems=new ArrayList<>();
 	
 	
